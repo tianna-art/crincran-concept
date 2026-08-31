@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>crincran ｜ Concept Graph</title>
+<meta name="description" content="曲がってきた道を、強さに変える。crincranの事業コンセプトを、思想・プロダクト・ユーザー・ブランド・事業の5領域からたどるコンセプトグラフ。">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>〰️</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Serif+JP:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#ffffff; --ink:#141414; --muted:#8f8f8f; --faint:#b9b9b9;
+  --line:#e7e7e7; --hover:#f6f6f6; --scrim:rgba(20,20,20,.28);
+  --edge:#dcdcdc; --edge-hi:#8f8f8f;
+  --node-home:#3b3b3b; --node:#9aa0a6;
+  --c-idea:#8d7fb0; --c-product:#6d86b8; --c-user:#6f9a86; --c-brand:#b0707f; --c-biz:#b08a5a;
+  --panel:#ffffff;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#0d0d0d; --ink:#f1f1f1; --muted:#8a8a8a; --faint:#5a5a5a;
+    --line:#232323; --hover:#161616; --scrim:rgba(0,0,0,.5);
+    --edge:#2c2c2c; --edge-hi:#767676;
+    --node-home:#e8e8e8; --node:#b4b9bd;
+    --c-idea:#a294c6; --c-product:#8099cc; --c-user:#84b39c; --c-brand:#c58493; --c-biz:#c69f6c;
+    --panel:#121212;
+  }
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+html{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+body{
+  font-family:"Noto Sans JP",system-ui,sans-serif;
+  background:var(--bg); color:var(--ink);
+  line-height:1.8; letter-spacing:.01em; overflow:hidden;
+  font-feature-settings:"palt";
+}
+.serif{font-family:"Noto Serif JP","Hiragino Mincho ProN",serif}
+
+/* ---- canvas ---- */
+.app{position:fixed; inset:0}
+#gcv{position:absolute; inset:0; width:100%; height:100%; display:block; cursor:grab; touch-action:none}
+#gcv.grabbing{cursor:grabbing}
+#gcv.pointing{cursor:pointer}
+
+/* ---- topbar ---- */
+.topbar{
+  position:absolute; top:0; left:0; right:0; z-index:3;
+  display:flex; justify-content:space-between; align-items:center; gap:16px;
+  padding:calc(env(safe-area-inset-top) + 20px) 26px 20px;
+  pointer-events:none;
+}
+.topbar > *{pointer-events:auto}
+.mark{font-weight:700; font-size:.9rem; letter-spacing:.2em; color:var(--ink); text-decoration:none}
+.mark .dot{color:var(--faint)}
+.menu-btn{
+  background:none; border:1px solid var(--line); border-radius:2px; color:var(--muted);
+  font:inherit; font-size:.7rem; letter-spacing:.16em; padding:7px 14px; cursor:pointer;
+  text-decoration:none; display:inline-block; transition:color .2s, border-color .2s;
+}
+.menu-btn:hover{color:var(--ink); border-color:var(--edge-hi)}
+
+/* ---- hero ---- */
+.hero{
+  position:absolute; left:26px; top:96px; z-index:2; max-width:min(420px, 60vw);
+  transition:opacity .7s ease, transform .7s ease; pointer-events:none;
+}
+.hero.gone{opacity:0; transform:translateY(-6px)}
+.hero .eyebrow{font-size:.68rem; letter-spacing:.3em; color:var(--muted); margin-bottom:18px}
+.hero h1{
+  font-family:"Noto Serif JP",serif; font-weight:600; font-size:clamp(1.5rem,3.2vw,2.4rem);
+  line-height:1.75; letter-spacing:.02em;
+}
+.hero p{margin-top:22px; font-size:.82rem; line-height:2.1; color:var(--muted); font-weight:300}
+@media(max-width:640px){ .hero{top:104px; max-width:80vw} .hero p{display:none} }
+
+/* ---- footer ---- */
+.footbar{
+  position:absolute; left:0; right:0; bottom:0; z-index:3;
+  display:flex; align-items:center; justify-content:space-between; gap:16px;
+  padding:18px 26px calc(env(safe-area-inset-bottom) + 20px);
+  pointer-events:none;
+}
+.footbar > *{pointer-events:auto}
+.hint{font-size:.68rem; color:var(--faint); letter-spacing:.06em}
+.legend{display:flex; flex-wrap:wrap; gap:6px 18px; justify-content:center}
+.legend button{
+  background:none; border:none; font:inherit; font-size:.7rem; letter-spacing:.1em;
+  color:var(--muted); cursor:pointer; padding:2px 0; display:flex; align-items:center; gap:7px;
+  opacity:.55; transition:opacity .2s, color .2s;
+}
+.legend button .sw{width:7px; height:7px; border-radius:50%; display:block}
+.legend button:hover, .legend button.on{opacity:1; color:var(--ink)}
+@media(max-width:820px){ .hint{display:none} }
+@media(max-width:520px){ .legend{gap:4px 12px} .legend button{font-size:.62rem} }
+
+/* ---- panel ---- */
+.panel{
+  position:absolute; top:0; right:0; bottom:0; width:min(420px, 92vw); z-index:5;
+  background:var(--panel); border-left:1px solid var(--line);
+  transform:translateX(101%); transition:transform .42s cubic-bezier(.22,.61,.36,1);
+  display:flex; flex-direction:column; overflow:hidden;
+}
+.panel.open{transform:none}
+.panel-head{
+  display:flex; align-items:flex-start; justify-content:space-between; gap:14px;
+  padding:calc(env(safe-area-inset-top) + 26px) 26px 0;
+}
+.panel-cat{font-size:.65rem; letter-spacing:.26em; text-transform:uppercase}
+.panel-close{
+  background:none;border:none;font:inherit;color:var(--faint);cursor:pointer;
+  font-size:1.1rem;line-height:1;padding:2px 4px;transition:color .2s;
+}
+.panel-close:hover{color:var(--ink)}
+.panel-body{padding:14px 26px calc(env(safe-area-inset-bottom) + 34px); overflow-y:auto; flex:1}
+.panel-body h2{
+  font-family:"Noto Serif JP",serif; font-weight:600; font-size:1.35rem; line-height:1.7;
+  letter-spacing:.02em; margin:0 0 22px;
+}
+.panel-body p{font-size:.86rem; line-height:2.1; font-weight:300; color:var(--ink); margin:0 0 1.3em}
+.panel-body p.q{
+  font-family:"Noto Serif JP",serif; font-size:.95rem; line-height:2; letter-spacing:.03em;
+  padding-left:16px; border-left:1px solid var(--edge-hi); color:var(--ink);
+}
+.panel-sec{
+  font-size:.62rem; letter-spacing:.24em; text-transform:uppercase; color:var(--faint);
+  margin:30px 0 12px; padding-top:18px; border-top:1px solid var(--line);
+}
+.chips{display:flex; flex-wrap:wrap; gap:7px}
+.chips button{
+  background:none; border:1px solid var(--line); border-radius:999px; font:inherit;
+  font-size:.72rem; color:var(--muted); padding:5px 13px; cursor:pointer;
+  display:flex; align-items:center; gap:7px; transition:color .2s, border-color .2s;
+}
+.chips button:hover{color:var(--ink); border-color:var(--edge-hi)}
+.chips button .sw{width:6px;height:6px;border-radius:50%;display:block}
+.read-link{
+  display:inline-block; margin-top:6px; font-size:.72rem; letter-spacing:.14em;
+  color:var(--muted); text-decoration:none; border-bottom:1px solid var(--line); padding-bottom:2px;
+  transition:color .2s, border-color .2s;
+}
+.read-link:hover{color:var(--ink); border-color:var(--edge-hi)}
+</style>
+</head>
+<body>
+<div class="app">
+  <canvas id="gcv"></canvas>
+
+  <div class="topbar">
+    <a class="mark" href="./">crincran</a>
+    <a class="menu-btn" href="./concept.html">コンセプトを読む</a>
+  </div>
+
+  <div class="hero" id="hero">
+    <p class="eyebrow">BUSINESS CONCEPT</p>
+    <h1 class="serif">曲がってきた道を、<br>強さに変える。</h1>
+    <p>日々の違和感・喜び・憧れ・挫折・試行錯誤を集め、時間をかけてつなぎ、「自分を生かす条件」を育てていくブランド／アプリケーション。中心の点から、たどってみてください。</p>
+  </div>
+
+  <div class="footbar">
+    <div class="hint">点をクリックで展開 ・ もう一度で収束 ・ ドラッグで移動 ・ ホイールで拡大</div>
+    <div class="legend" id="legend"></div>
+    <button class="menu-btn" id="reset">RESET</button>
+  </div>
+
+  <aside class="panel" id="panel" aria-hidden="true">
+    <div class="panel-head">
+      <div class="panel-cat" id="panelCat"></div>
+      <button class="panel-close" id="panelClose" aria-label="閉じる">✕</button>
+    </div>
+    <div class="panel-body" id="panelBody"></div>
+  </aside>
+</div>
+
+<script>
+/* ============================================================
+   crincran — Concept Graph
+   ============================================================ */
+const CATS = {
+  hub:     {label:'crincran',   en:'CORE',     v:'--node-home'},
+  idea:    {label:'思想',        en:'IDEA',     v:'--c-idea'},
+  product: {label:'プロダクト',   en:'PRODUCT',  v:'--c-product'},
+  user:    {label:'ユーザー',     en:'READER',   v:'--c-user'},
+  brand:   {label:'ブランド',     en:'BRAND',    v:'--c-brand'},
+  biz:     {label:'事業',        en:'BUSINESS', v:'--c-biz'},
+};
+
+const DEF = [
+{id:'core', label:'crincran', cat:'hub', k:'hub', a:'',
+ body:['日々の違和感・喜び・憧れ・挫折・試行錯誤を集め、時間をかけてつなぐことで、「自分を生かす条件」を少しずつ見えるようにしていくブランド／アプリケーション。'],
+ q:'まっすぐ進めなかった日々も、次の自分をつくる材料になる。'},
+
+/* ── 思想 ───────────────────────────── */
+{id:'idea', label:'思想', cat:'idea', k:'branch', p:'core', a:'#ch3',
+ body:['crincranが統一するのは、憧れの「内容」ではなく、それを扱う「態度」と「編集美学」。','ユーザーごとの憧れの中身はバラバラでいい。ブランドが決めるのは、その扱い方だけ。']},
+{id:'wall', label:'波打つ壁', cat:'idea', k:'leaf', p:'idea', a:'#ch2',
+ body:['ブランド名は、イギリスにある波状のレンガ壁 Crinkle Crankle Wall に由来する。','まっすぐな壁は自立するために厚みを必要とするが、波状に曲がった壁は、その曲線自体が強度を生み出す。レンガ一枚分の薄さでも何百年と立ち続ける。'],
+ q:'曲がっているからこそ、強くなれる。'},
+{id:'notpositive', label:'無理に前向きにしない', cat:'idea', k:'leaf', p:'idea', a:'#ch3',
+ body:['苦しい日も悲しい日も、「成長だった」「意味があった」とすぐに解釈しなくていい。','その時点では意味がわからなくても、なかったことにせず、残しておく。時間が経って別の経験とつながったとき、初めて意味が見えてくることがある。']},
+{id:'evidence', label:'答えではなくEvidence', cat:'idea', k:'leaf', p:'idea', a:'#ch3',
+ body:['「あなたはこういう人です」と診断しない。代わりに、本人が残してきた証拠を返す。','「こういう出来事が何度もありました」「このときも、同じことを大切にしていました」。だから本人が「本当にそうかもしれない」と納得できる。']},
+{id:'outline', label:'芯ではなく輪郭', cat:'idea', k:'leaf', p:'idea', a:'#ch3',
+ body:['一生変わらない「本当の自分」を決めること自体が、苦しさにつながることがある。','だから芯を「発見する」のではなく、輪郭を「育てる」。人は変わっていいし、価値観も変わっていい。その時々で「今の私は、この方向に心が動いている」とわかればいい。']},
+{id:'story', label:'点を線にする', cat:'idea', k:'leaf', p:'idea', a:'#ch8',
+ body:['物語とは、人生を無理やり美談にすることではない。','過去の出来事を、今の自分からもう一度見直せるように配置すること。意味がなかったと思っていたものに、別の出来事とのつながりが生まれる。'],
+ q:'物語はユーザー体験。判断軸はユーザーが得る実利。'},
+{id:'ambition', label:'向上心の扱い方', cat:'idea', k:'leaf', p:'idea', a:'#ch3',
+ body:['「ありのままのあなたで十分」だけのブランドではない。同時に「もっと頑張れ」でもない。','目指すのは、劣等感を煽らずに向上心を美しく扱うこと。憧れを「今の自分は足りない」という証明ではなく、まだ知らない自分の可能性として扱う。']},
+
+/* ── プロダクト ─────────────────────── */
+{id:'product', label:'プロダクト', cat:'product', k:'branch', p:'core', a:'#ch7',
+ body:['集める、つなぐ、返す、試す。この四つが一周するとまた集めるところへ戻る。','半年、1年、3年と使うことで、ユーザー自身のEvidenceが蓄積していく。単発診断ではない。']},
+{id:'collect', label:'COLLECT｜集める', cat:'product', k:'leaf', p:'product', a:'#ch7',
+ body:['「キャリア」「プライベート」と最初から分類しすぎない。重要なのは、心が動いた瞬間を集めること。','入力は6種類。どれに入れるか迷ったら、迷ったままでいい。'],
+ q:'まず集める。意味づけは後。'},
+{id:'spark', label:'Spark', cat:'product', k:'sub', p:'collect', a:'#ch7',
+ body:['嬉しかったこと／惹かれたもの／楽しかったこと／もっとやりたいと思ったこと。']},
+{id:'friction', label:'Friction', cat:'product', k:'sub', p:'collect', a:'#ch7',
+ body:['モヤモヤ／違和感／疲れたこと／嫌だったこと。']},
+{id:'longing', label:'Longing', cat:'product', k:'sub', p:'collect', a:'#ch7',
+ body:['憧れ／嫉妬／羨ましいと思ったもの／こうなりたいと思った世界。']},
+{id:'exp', label:'Experiment', cat:'product', k:'sub', p:'collect', a:'#ch7',
+ body:['試してみたこと／初めてやったこと／小さな挑戦。']},
+{id:'turning', label:'Turning Point', cat:'product', k:'sub', p:'collect', a:'#ch7',
+ body:['失敗／挫折／諦め／予定外の出来事。']},
+{id:'people', label:'People', cat:'product', k:'sub', p:'collect', a:'#ch7',
+ body:['一緒にいて心地よかった人／苦しかった人／憧れた人。']},
+{id:'lowfriction', label:'内省を強いない入力', cat:'product', k:'leaf', p:'product', a:'#ch7',
+ body:['毎回「なぜそう思いましたか？」を5回聞くようなUXにはしない。','一言、写真、URL、スクリーンショット、音声、引用、気になった場所、人、出来事——放り込めればいい。']},
+{id:'connect', label:'CONNECT｜つなぐ', cat:'product', k:'leaf', p:'product', a:'#ch7',
+ body:['「会議が多すぎて疲れた」「一人で美術館を歩く時間が好き」「この作家の制作生活に憧れる」「少人数で企画を考えた日は楽しかった」。','これらの記録から、AIが QUIET AUTONOMY のようなテーマを見つけ、その根拠となった記録同士をつなぐ。断言はしない。つながりの候補を差し出すだけ。']},
+{id:'pcg', label:'Personal Context Graph', cat:'product', k:'leaf', p:'product', a:'#ch7',
+ body:['出来事・感情・人・場所・憧れ・仕事・プロジェクト・失敗・成功・興味・価値観・Experimentがネットワーク状につながる。','キーワードをタップすると、なぜそのテーマが出てきたのかがシナプスのようなグラフで表示される。時間とともに精度が上がっていく。']},
+{id:'stylebook', label:'Style Book', cat:'product', k:'leaf', p:'product', a:'#ch6',
+ body:['毎月、ユーザーの記録から一冊が生成される。COVER／WHAT MOVED YOU／WHAT DRAINED YOU／WHAT YOU KEPT RETURNING TO／YOUR LONGINGS／THE THREAD／EVIDENCE／SMALL EXPERIMENT。','Vogueは毎月すべてが変わる。それでもどの号を見てもVogueだとわかる。crincranという編集者を通すことで、誰の記録も同じブランドテンションのStyle Bookになる。'],
+ q:'自分から生まれたのに、自分では作れなかったもの。'},
+{id:'small', label:'Small Experiment', cat:'product', k:'leaf', p:'product', a:'#ch10',
+ body:['人生を大きく変えることだけを挑戦と呼ばない。','気になっていた美術館へ行く。初めてのバーへ入ってみる。新しい本を読む。誰かに連絡してみる。小さな作品を作る。人生に新しい点を一つ増やす程度のExperimentのほうが、ブランドに合っている。']},
+
+/* ── ユーザー ───────────────────────── */
+{id:'user', label:'ユーザー', cat:'user', k:'branch', p:'core', a:'#ch11',
+ body:['まっすぐな成功ルートに、うまく乗れなかった人へ。','単純な「転職したい人」ではない。色々試してきて、向上心はあって、でも典型的なバリキャリ像には違和感がある人。']},
+{id:'reader', label:'まっすぐ乗れなかった人', cat:'user', k:'leaf', p:'user', a:'#ch11',
+ body:['キャリアが一貫していない。色々試してきた。転職経験がある。好きなことが複数ある。向上心はある。','でも典型的なバリキャリ像には違和感がある。「このままでいいのかな」と感じる。安定だけでも満足できない。でも全てを捨てて夢を追うのも現実的ではない。']},
+{id:'voices', label:'ターゲットの感情', cat:'user', k:'leaf', p:'user', a:'#ch11',
+ body:['「ちゃんと頑張ってきたはずなのに、一本のキャリアになっていない。」','「周りは前に進んでいるのに、自分だけ遠回りしている気がする。」','「好きなものも、安定も、挑戦も、全部捨てたくない。」']},
+{id:'emo', label:'失敗作だと思わなくなる', cat:'user', k:'leaf', p:'user', a:'#ch9',
+ body:['Emotional Benefit。「何も進んでいなかった」と思っていた期間にも、学んだこと・守ろうとしていたもの・嫌だったこと・好きだったこと・試したこと・出会った人が存在していたと気づく。'],
+ q:'私はちゃんと試行錯誤しながら進んできた。'},
+{id:'func', label:'選びやすくなる', cat:'user', k:'leaf', p:'user', a:'#ch9',
+ body:['Functional Benefit。次に迷ったとき、自分に合う選択をしやすくなる。','ただしAIが「転職すべき」と判断するのではない。どんな仕事が好きか、どんな環境で消耗するか、どんな裁量が必要か——が蓄積された結果として見えてくる。']},
+{id:'cond', label:'自分を生かす条件', cat:'user', k:'leaf', p:'user', a:'#ch9',
+ body:['「価値観」という抽象語ではなく、もっと具体的な条件に落とす。','最終的に「私はこういう条件だと、生きやすい」が蓄積されていく。']},
+{id:'c1', label:'People', cat:'user', k:'sub', p:'cond', a:'#ch9', body:['少人数／尊敬できる人／一緒に挑戦できる人。']},
+{id:'c2', label:'Environment', cat:'user', k:'sub', p:'cond', a:'#ch9', body:['静かな時間／自然／美しい空間／余白。']},
+{id:'c3', label:'Work', cat:'user', k:'sub', p:'cond', a:'#ch9', body:['自分で企画できる／作品が残る／人と深く関われる。']},
+{id:'c4', label:'Rhythm', cat:'user', k:'sub', p:'cond', a:'#ch9', body:['毎日同じではない／集中する時間が必要／一人になる時間が必要。']},
+{id:'c5', label:'Growth', cat:'user', k:'sub', p:'cond', a:'#ch9', body:['新しいことを学べる／少し怖い挑戦がある。']},
+{id:'longingIn', label:'憧れという入口', cat:'user', k:'leaf', p:'user', a:'#ch5',
+ body:['自分の現実だけを記録していても、「仕事がつらい」「今日も何もできなかった」という記録ばかりになれば、むしろ苦しくなる。','人は外の世界を見て、自分の人生に新しい可能性を投入している。crincranではこの外から入ってくる憧れも、人生の重要なデータとして扱う。','ただし「あなたもこの人になりましょう」とはしない。拾うのは、その憧れのどこに自分の心が反応したのか、という一段深い層。']},
+
+/* ── ブランド ───────────────────────── */
+{id:'brand', label:'ブランド', cat:'brand', k:'branch', p:'core', a:'#ch14',
+ body:['crincran自身が、憧れられるブランドになること。','自己分析アプリのような、青・白・グラフ・診断結果・Productivity中心のデザインにはしない。']},
+{id:'editing', label:'編集姿勢', cat:'brand', k:'leaf', p:'brand', a:'#ch3',
+ body:['憧れをそのままコピーしない。自分の人生に合う形へ訳し直す。','挫折を消さない。次の自分をつくった証拠として残す。','正解を決めない。自分で選べる材料を増やす。自分だけを見つめ続けない。世界に触れながら、自分へ戻ってくる。']},
+{id:'visual', label:'Visual Direction', cat:'brand', k:'leaf', p:'brand', a:'#ch14',
+ body:['Editorial／Poetic／Intelligent／Unexpected／Quiet／Experimental／Slightly mysterious／Imperfect／Curved／Tactile／Contemporary。','近いのは、ファッション誌、アートブック、写真集、Independent Magazine、Gallery、Museum、Poetry、Architecture。'],
+ q:'曲線は美しい。不完全だから面白い。予定外だから物語になる。'},
+{id:'editorial', label:'美しい形で返す', cat:'brand', k:'leaf', p:'brand', a:'#ch8',
+ body:['単なる分析レポートではなく、自分自身を素材にしたEditorialとして返ってくる。','ここが「便利なAIツール」とcrincranを分ける、最も重要なポイント。']},
+{id:'sns', label:'SNSの役割', cat:'brand', k:'leaf', p:'brand', a:'#ch14',
+ body:['SNSを「自己分析のノウハウを教える場所」にしすぎない。それではブランドの憧れが弱くなる。','WORLD／STORY／QUESTION／EDITORIAL／PRODUCT を混ぜる。'],
+ q:'こんなふうに人生を眺める方法がある。'},
+{id:'copy', label:'ブランドコピー', cat:'brand', k:'leaf', p:'brand', a:'#ch16',
+ body:['Main：働く自分に、地図と物語を。','Philosophy：曲がってきた道を、強さに変える。／遠回りにも、形がある。／まっすぐじゃない人生を、美しく残す。'],
+ q:'Your detours are part of the design.'},
+{id:'promise', label:'約束しないもの', cat:'brand', k:'leaf', p:'brand', a:'#ch12',
+ body:['天職が見つかる。転職が成功する。本当の自分がわかる。夢が叶う。失敗がすべて意味のあるものになる。AIが人生の正解を教える——こうした強すぎる約束はしない。','約束できるのは、日々の経験を未来の選択に使える形で残すこと。遠回りの中から自分を生かす条件を見つけること。人生に小さなExperimentを増やすこと。']},
+
+/* ── 事業 ───────────────────────────── */
+{id:'biz', label:'事業', cat:'biz', k:'branch', p:'core', a:'#ch15',
+ body:['万人向けの便利ツールではなく、1,000人のためのブランド。','大規模サービスでなくても、crincranの世界観に深く共感する1,000人がいれば成立する可能性がある。']},
+{id:'price', label:'1,000人 × ¥500', cat:'biz', k:'leaf', p:'biz', a:'#ch15',
+ body:['月額500円、1,000人で月50万円。','重要なのは「これは自分のためのブランドだ」と感じる1,000人をつくること。']},
+{id:'why', label:'課金理由5つ', cat:'biz', k:'leaf', p:'biz', a:'#ch15',
+ body:['単に記録するだけなら、Notes・Notion・Obsidian・ChatGPTで十分。','Collect（集められる）／Connect（気づかなかったつながり）／Evidence（過去の記録まで辿れる）／Editorial（美しく返る）／Experiment（次の行動へ）。この5つの組み合わせが理由になる。']},
+{id:'career', label:'キャリアを入口に', cat:'biz', k:'leaf', p:'biz', a:'#ch10',
+ body:['Careerに絞ると課題が明確で、お金につながり、成果を説明しやすい。','ただし「仕事について記録するアプリ」にはしない。働く自分を理解するために、仕事以外の人生も含めて記録できるStyle Bookという位置づけ。']},
+{id:'notjob', label:'転職をゴールにしない', cat:'biz', k:'leaf', p:'biz', a:'#ch10',
+ body:['転職には収入、家族、住宅、業界、スキル、経済状況、ビザ、人間関係など非常に多くの要素が絡む。そこまで踏み込む必要はない。','その領域にはすでに転職支援・キャリア診断がある。crincranはその一歩手前を担う。'],
+ q:'crincranが扱うのは、転職するかどうかを決める前の自分。'},
+{id:'diff', label:'差別化', cat:'biz', k:'leaf', p:'biz', a:'#ch13',
+ body:['ジャーナリングは出来事を書いて気持ちを整理する。自己分析は質問に答えてタイプを知る。キャリア診断は経歴から職業を知る。','crincranは、人生の断片を集める→時間をかけてつなぐ→Style Bookとして返る→自分を生かす条件が育つ→次の小さなExperimentが生まれる。']},
+{id:'balance', label:'ブランドバランス', cat:'biz', k:'leaf', p:'biz', a:'#ch13',
+ body:['自己分析↔憧れ／現実↔理想／内省↔Inspiration／キャリア↔Life／実用↔Art／自己肯定↔向上心／安定↔挑戦／Algorithm↔Editorial／Data↔Story。','どちらか一方に寄り切らないことが重要。']},
+];
+
+/* 階層以外の関連（点線） */
+const CROSS = [
+ ['wall','copy'],['wall','visual'],['longing','longingIn'],['longingIn','ambition'],
+ ['collect','lowfriction'],['connect','pcg'],['pcg','evidence'],['stylebook','editorial'],
+ ['stylebook','story'],['cond','func'],['small','notjob'],['turning','notpositive'],
+ ['outline','reader'],['emo','story'],['why','diff'],['career','reader'],
+ ['promise','notpositive'],['price','sns'],['balance','editing'],['visual','editorial'],
+ ['longingIn','stylebook'],['cond','career'],['voices','emo'],['spark','connect'],
+];
+</script>
+
+<script>
+/* ---------- build ---------- */
+const MAP = {};
+const ALL = DEF.map(d => {
+  const n = Object.assign({}, d);
+  n.children = []; n.x = 0; n.y = 0; n.vx = 0; n.vy = 0;
+  n.open = false; n.vis = false; n.alpha = 0; n.rel = [];
+  MAP[n.id] = n; return n;
+});
+ALL.forEach(n => { if (n.p && MAP[n.p]) MAP[n.p].children.push(n); });
+CROSS.forEach(([a,b]) => { if (MAP[a] && MAP[b]) { MAP[a].rel.push(b); MAP[b].rel.push(a); } });
+
+const R = {hub:15, branch:7.5, leaf:4.6, sub:3.2};
+function linkLen(a, b){
+  if (a.k === 'hub' || b.k === 'hub') return 250;
+  if (a.k === 'branch' || b.k === 'branch') return 148;
+  return 80;
+}
+
+/* ---------- canvas ---------- */
+const cv = document.getElementById('gcv');
+const ctx = cv.getContext('2d');
+let W = 0, H = 0, DPR = 1;
+function resize(){
+  DPR = Math.min(window.devicePixelRatio || 1, 2);
+  W = cv.clientWidth; H = cv.clientHeight;
+  cv.width = Math.round(W * DPR); cv.height = Math.round(H * DPR);
+  ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+}
+window.addEventListener('resize', resize);
+
+/* ---------- palette ---------- */
+let PAL = {};
+function readPalette(){
+  const cs = getComputedStyle(document.documentElement);
+  const g = v => cs.getPropertyValue(v).trim();
+  PAL = {
+    bg: g('--bg'), ink: g('--ink'), muted: g('--muted'), faint: g('--faint'),
+    edge: g('--edge'), edgeHi: g('--edge-hi'),
+    cat: Object.fromEntries(Object.entries(CATS).map(([k, c]) => [k, g(c.v)]))
+  };
+}
+readPalette();
+if (window.matchMedia) {
+  const mq = window.matchMedia('(prefers-color-scheme: dark)');
+  (mq.addEventListener ? mq.addEventListener.bind(mq, 'change') : mq.addListener.bind(mq))(readPalette);
+}
+function hexA(hex, a){
+  hex = (hex || '#888').replace('#','');
+  if (hex.length === 3) hex = hex.split('').map(c => c + c).join('');
+  const n = parseInt(hex, 16);
+  return 'rgba(' + ((n>>16)&255) + ',' + ((n>>8)&255) + ',' + (n&255) + ',' + a + ')';
+}
+
+/* ---------- state ---------- */
+let VIS = [], LINKS = [];
+const cam = {x:0, y:0, k:1};
+let camTarget = null;
+let hover = null, sel = null, activeCat = null;
+let drag = null;
+
+MAP.core.vis = true; MAP.core.alpha = 1;
+
+function computeVis(){
+  ALL.forEach(n => n.vis = false);
+  (function walk(n){ n.vis = true; if (n.open) n.children.forEach(walk); })(MAP.core);
+  VIS = ALL.filter(n => n.vis);
+  LINKS = [];
+  VIS.forEach(n => { if (n.p && MAP[n.p].vis) LINKS.push({a:MAP[n.p], b:n, cross:false}); });
+  CROSS.forEach(([x,y]) => { if (MAP[x].vis && MAP[y].vis) LINKS.push({a:MAP[x], b:MAP[y], cross:true}); });
+}
+computeVis();
+
+function collapse(n){ n.open = false; n.children.forEach(c => { collapse(c); c.alpha = 0; }); }
+
+function toggle(n){
+  if (!n.children.length) return false;
+  if (n.open) { collapse(n); }
+  else {
+    n.open = true;
+    const L = linkLen(n, n.children[0]) * 0.4;
+    n.children.forEach((c, i) => {
+      const a = (i / n.children.length) * Math.PI * 2 + Math.random() * 0.6;
+      c.x = n.x + Math.cos(a) * L; c.y = n.y + Math.sin(a) * L;
+      c.vx = 0; c.vy = 0; c.alpha = 0;
+    });
+  }
+  computeVis();
+  return true;
+}
+
+/* ---------- physics ---------- */
+function step(){
+  const n = VIS.length;
+  for (let i = 0; i < n; i++){
+    const a = VIS[i];
+    for (let j = i + 1; j < n; j++){
+      const b = VIS[j];
+      let dx = b.x - a.x, dy = b.y - a.y;
+      let d2 = dx*dx + dy*dy;
+      if (d2 < 1) { d2 = 1; dx = (Math.random()-0.5); dy = (Math.random()-0.5); }
+      const d = Math.sqrt(d2);
+      const rep = 9200 / d2;
+      const fx = (dx/d) * rep, fy = (dy/d) * rep;
+      if (a !== drag) { a.vx -= fx; a.vy -= fy; }
+      if (b !== drag) { b.vx += fx; b.vy += fy; }
+    }
+  }
+  LINKS.forEach(l => {
+    if (l.cross) return;
+    const dx = l.b.x - l.a.x, dy = l.b.y - l.a.y;
+    const d = Math.hypot(dx, dy) || 1;
+    const L = linkLen(l.a, l.b);
+    const f = (d - L) * 0.014;
+    const fx = (dx/d) * f, fy = (dy/d) * f;
+    if (l.a !== drag && l.a.k !== 'hub') { l.a.vx += fx; l.a.vy += fy; }
+    if (l.b !== drag) { l.b.vx -= fx; l.b.vy -= fy; }
+  });
+  LINKS.forEach(l => {
+    if (!l.cross) return;
+    const dx = l.b.x - l.a.x, dy = l.b.y - l.a.y;
+    const d = Math.hypot(dx, dy) || 1;
+    const f = (d - 210) * 0.0016;
+    const fx = (dx/d) * f, fy = (dy/d) * f;
+    if (l.a !== drag) { l.a.vx += fx; l.a.vy += fy; }
+    if (l.b !== drag) { l.b.vx -= fx; l.b.vy -= fy; }
+  });
+  VIS.forEach(p => {
+    if (p.k === 'hub') { if (p !== drag) { p.x += (0 - p.x) * 0.06; p.y += (0 - p.y) * 0.06; p.vx = p.vy = 0; } }
+    else if (p !== drag) {
+      p.vx -= p.x * 0.00055; p.vy -= p.y * 0.00055;
+      p.vx *= 0.87; p.vy *= 0.87;
+      const sp = Math.hypot(p.vx, p.vy);
+      if (sp > 14) { p.vx = p.vx / sp * 14; p.vy = p.vy / sp * 14; }
+      p.x += p.vx; p.y += p.vy;
+    }
+    p.alpha += ((p.vis ? 1 : 0) - p.alpha) * 0.12;
+  });
+  if (camTarget) {
+    cam.x += (camTarget.x - cam.x) * 0.09;
+    cam.y += (camTarget.y - cam.y) * 0.09;
+    if (Math.hypot(camTarget.x - cam.x, camTarget.y - cam.y) < 0.6) camTarget = null;
+  }
+}
+
+/* keep a node inside the visible area (left of the panel when it is open) */
+function bringIntoView(n){
+  const pw = panel.classList.contains('open') ? panel.getBoundingClientRect().width : 0;
+  const viewW = W - pw;
+  if (viewW < 260) { camTarget = {x: -n.x * cam.k, y: -n.y * cam.k}; return; }
+  const px = sx(n.x), py = sy(n.y);
+  const padX = 120, padTop = 150, padBot = 150;
+  let tx = cam.x, ty = cam.y, need = false;
+  if (px < padX)            { tx += padX - px; need = true; }
+  if (px > viewW - padX)    { tx -= px - (viewW - padX); need = true; }
+  if (py < padTop)          { ty += padTop - py; need = true; }
+  if (py > H - padBot)      { ty -= py - (H - padBot); need = true; }
+  if (need) camTarget = {x: tx, y: ty};
+}
+
+/* ---------- draw ---------- */
+const sx = wx => W/2 + cam.x + wx * cam.k;
+const sy = wy => H/2 + cam.y + wy * cam.k;
+const wxf = px => (px - W/2 - cam.x) / cam.k;
+const wyf = py => (py - H/2 - cam.y) / cam.k;
+
+function dimOf(n){
+  if (!activeCat) return 1;
+  if (n.k === 'hub') return 1;
+  return n.cat === activeCat ? 1 : 0.14;
+}
+function nodeColor(n){ return PAL.cat[n.cat] || PAL.cat.hub; }
+function radius(n){ return R[n.k] * (0.85 + 0.15 * cam.k); }
+
+function draw(){
+  ctx.clearRect(0, 0, W, H);
+  ctx.fillStyle = PAL.bg; ctx.fillRect(0, 0, W, H);
+
+  const hi = hover || sel;
+  const hiSet = new Set();
+  if (hi) { hiSet.add(hi.id); if (hi.p) hiSet.add(hi.p); hi.children.forEach(c => hiSet.add(c.id)); hi.rel.forEach(id => hiSet.add(id)); }
+
+  LINKS.forEach(l => {
+    const on = hi && hiSet.has(l.a.id) && hiSet.has(l.b.id);
+    const al = Math.min(l.a.alpha, l.b.alpha) * Math.min(dimOf(l.a), dimOf(l.b));
+    if (al < 0.02) return;
+    ctx.save();
+    ctx.globalAlpha = al * (l.cross ? (on ? 0.85 : 0.4) : (on ? 1 : 0.9));
+    ctx.strokeStyle = on ? PAL.edgeHi : PAL.edge;
+    ctx.lineWidth = on ? 1.15 : 1;
+    if (l.cross) ctx.setLineDash([1.5, 4.5]);
+    ctx.beginPath();
+    ctx.moveTo(sx(l.a.x), sy(l.a.y));
+    ctx.lineTo(sx(l.b.x), sy(l.b.y));
+    ctx.stroke();
+    ctx.restore();
+  });
+
+  const taken = [];
+  const hitsTaken = r => taken.some(t => !(r.x + r.w < t.x || t.x + t.w < r.x || r.y + r.h < t.y || t.y + t.h < r.y));
+  VIS.slice().sort((a,b) => a.alpha - b.alpha).forEach(n => {
+    const x = sx(n.x), y = sy(n.y), r = radius(n);
+    const al = n.alpha * dimOf(n);
+    if (al < 0.02) return;
+    const col = nodeColor(n);
+    const on = hi && (hi === n || hiSet.has(n.id));
+    const glow = r * (n.k === 'hub' ? 4.6 : 3.4) * (on ? 1.18 : 1);
+
+    const g = ctx.createRadialGradient(x, y, 0, x, y, glow);
+    g.addColorStop(0, hexA(col, 0.55 * al));
+    g.addColorStop(0.42, hexA(col, 0.14 * al));
+    g.addColorStop(1, hexA(col, 0));
+    ctx.fillStyle = g;
+    ctx.beginPath(); ctx.arc(x, y, glow, 0, 6.284); ctx.fill();
+
+    ctx.globalAlpha = al;
+    ctx.fillStyle = hexA(col, n.k === 'hub' ? 0.95 : 0.9);
+    ctx.beginPath(); ctx.arc(x, y, r, 0, 6.284); ctx.fill();
+
+    if (n === sel) {
+      ctx.globalAlpha = al * 0.9;
+      ctx.strokeStyle = hexA(col, 0.75); ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.arc(x, y, r + 7, 0, 6.284); ctx.stroke();
+    }
+    ctx.globalAlpha = 1;
+
+    if (n.k !== 'hub') {
+      const size = n.k === 'branch' ? 13.5 : n.k === 'leaf' ? 11.5 : 10.5;
+      const wgt  = n.k === 'branch' ? 500 : n.k === 'leaf' ? 400 : 300;
+      ctx.font = wgt + ' ' + size + 'px "Noto Sans JP", system-ui, sans-serif';
+      ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+      const tw = ctx.measureText(n.label).width;
+      const box = {x: x - tw/2 - 3, y: y + r + 8, w: tw + 6, h: size + 6};
+      const must = on || n.k === 'branch' || n === sel;
+      if (must || !hitsTaken(box)) {
+        taken.push(box);
+        ctx.globalAlpha = al * (on ? 1 : (n.k === 'sub' ? 0.62 : 0.85));
+        ctx.fillStyle = PAL.ink;
+        ctx.fillText(n.label, x, y + r + 9);
+        ctx.globalAlpha = 1;
+      }
+    }
+  });
+}
+
+let raf;
+function loop(){ step(); draw(); raf = requestAnimationFrame(loop); }
+resize(); loop();
+
+/* ---------- interaction ---------- */
+let dragOff = {x:0, y:0}, panning = false;
+let ptr = {x:0, y:0}, downAt = 0, moved = 0;
+
+function pick(px, py){
+  let best = null, bd = 1e9;
+  for (const n of VIS){
+    if (n.alpha < 0.35) continue;
+    const d = Math.hypot(sx(n.x) - px, sy(n.y) - py);
+    const hitR = Math.max(radius(n) + 14, 20);
+    if (d < hitR && d < bd) { bd = d; best = n; }
+  }
+  return best;
+}
+
+cv.addEventListener('pointerdown', e => {
+  cv.setPointerCapture(e.pointerId);
+  ptr = {x: e.clientX, y: e.clientY}; downAt = Date.now(); moved = 0;
+  const n = pick(e.clientX, e.clientY);
+  if (n) { drag = n; dragOff = {x: wxf(e.clientX) - n.x, y: wyf(e.clientY) - n.y}; }
+  else { panning = true; cv.classList.add('grabbing'); }
+});
+cv.addEventListener('pointermove', e => {
+  const dx = e.clientX - ptr.x, dy = e.clientY - ptr.y;
+  if (drag) { moved += Math.hypot(dx, dy); drag.x = wxf(e.clientX) - dragOff.x; drag.y = wyf(e.clientY) - dragOff.y; drag.vx = drag.vy = 0; }
+  else if (panning) { moved += Math.hypot(dx, dy); cam.x += dx; cam.y += dy; camTarget = null; }
+  else {
+    const n = pick(e.clientX, e.clientY);
+    if (n !== hover) { hover = n; cv.classList.toggle('pointing', !!n); }
+  }
+  ptr = {x: e.clientX, y: e.clientY};
+});
+cv.addEventListener('pointerup', e => {
+  const quick = Date.now() - downAt < 500 && moved < 6;
+  if (quick) {
+    const n = drag || pick(e.clientX, e.clientY);
+    if (n) onNode(n); else { closePanel(); sel = null; }
+  }
+  drag = null; panning = false; cv.classList.remove('grabbing');
+});
+cv.addEventListener('pointerleave', () => { drag = null; panning = false; hover = null; cv.classList.remove('grabbing'); });
+cv.addEventListener('wheel', e => {
+  e.preventDefault();
+  const f = Math.exp(-e.deltaY * 0.0012);
+  const k2 = Math.min(2.4, Math.max(0.35, cam.k * f));
+  const wx = wxf(e.clientX), wy = wyf(e.clientY);
+  cam.k = k2;
+  cam.x = e.clientX - W/2 - wx * cam.k;
+  cam.y = e.clientY - H/2 - wy * cam.k;
+  camTarget = null;
+}, {passive: false});
+
+function onNode(n){
+  toggle(n);
+  sel = n;
+  if (n.k === 'hub') { document.getElementById('hero').classList.toggle('gone', n.open); }
+  if (n.k !== 'hub') openPanel(n); else if (!n.open) closePanel();
+  setTimeout(() => bringIntoView(n), 420);
+}
+
+/* ---------- panel ---------- */
+const panel = document.getElementById('panel');
+const pCat = document.getElementById('panelCat');
+const pBody = document.getElementById('panelBody');
+function openPanel(n){
+  const c = CATS[n.cat];
+  pCat.textContent = c.label + ' / ' + c.en;
+  pCat.style.color = nodeColor(n);
+  let h = '<h2 class="serif">' + n.label + '</h2>';
+  (n.body || []).forEach(t => h += '<p>' + t + '</p>');
+  if (n.q) h += '<p class="q serif">' + n.q + '</p>';
+  const rel = [];
+  if (n.p) rel.push(n.p);
+  n.children.forEach(ch => rel.push(ch.id));
+  n.rel.forEach(id => rel.push(id));
+  if (rel.length){
+    h += '<div class="panel-sec">関連するノード</div><div class="chips">';
+    [...new Set(rel)].forEach(id => {
+      const m = MAP[id];
+      h += '<button data-go="' + id + '"><span class="sw" style="background:' + nodeColor(m) + '"></span>' + m.label + '</button>';
+    });
+    h += '</div>';
+  }
+  if (n.a) h += '<div class="panel-sec">本文</div><a class="read-link" href="./concept.html' + n.a + '">コンセプトブックの該当章を読む →</a>';
+  pBody.innerHTML = h;
+  pBody.scrollTop = 0;
+  panel.classList.add('open'); panel.setAttribute('aria-hidden', 'false');
+}
+function closePanel(){ panel.classList.remove('open'); panel.setAttribute('aria-hidden', 'true'); }
+document.getElementById('panelClose').addEventListener('click', () => { closePanel(); sel = null; });
+pBody.addEventListener('click', e => {
+  const b = e.target.closest('[data-go]'); if (!b) return;
+  focusNode(MAP[b.dataset.go]);
+});
+function focusNode(n){
+  const chain = []; let c = n;
+  while (c && c.p) { chain.unshift(MAP[c.p]); c = MAP[c.p]; }
+  chain.forEach(a => { if (!a.open) toggle(a); });
+  document.getElementById('hero').classList.add('gone');
+  sel = n;
+  openPanel(n);
+  setTimeout(() => bringIntoView(n), 480);
+}
+
+/* ---------- legend ---------- */
+const legend = document.getElementById('legend');
+Object.entries(CATS).filter(([k]) => k !== 'hub').forEach(([k, c]) => {
+  const b = document.createElement('button');
+  b.innerHTML = '<span class="sw" style="background:var(' + c.v + ')"></span>' + c.label;
+  b.addEventListener('click', () => {
+    activeCat = activeCat === k ? null : k;
+    [...legend.children].forEach(el => el.classList.remove('on'));
+    if (activeCat) b.classList.add('on');
+    if (activeCat && !MAP.core.open) { toggle(MAP.core); document.getElementById('hero').classList.add('gone'); }
+    if (activeCat && !MAP[k].open) toggle(MAP[k]);
+  });
+  legend.appendChild(b);
+});
+
+/* ---------- reset ---------- */
+document.getElementById('reset').addEventListener('click', () => {
+  collapse(MAP.core); computeVis();
+  cam.x = 0; cam.y = 0; cam.k = 1;
+  sel = null; hover = null; activeCat = null;
+  [...legend.children].forEach(el => el.classList.remove('on'));
+  closePanel();
+  document.getElementById('hero').classList.remove('gone');
+});
+window.addEventListener('keydown', e => { if (e.key === 'Escape') { closePanel(); sel = null; } });
+</script>
+</body>
+</html>
