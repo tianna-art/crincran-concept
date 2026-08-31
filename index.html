@@ -61,6 +61,13 @@ body{
   text-decoration:none; display:inline-block; transition:color .2s, border-color .2s;
 }
 .menu-btn:hover{color:var(--ink); border-color:var(--edge-hi)}
+.topnav{display:flex; align-items:baseline; gap:18px}
+.topnav a{
+  font-size:.7rem; letter-spacing:.2em; text-transform:uppercase;
+  color:var(--muted); text-decoration:none; padding-bottom:3px;
+  border-bottom:1px solid transparent; transition:color .2s, border-color .2s;
+}
+.topnav a:hover{color:var(--ink); border-bottom-color:var(--edge-hi)}
 
 /* ---- hero ---- */
 .hero{
@@ -150,7 +157,10 @@ body{
 
   <div class="topbar">
     <a class="mark" href="./">crincran</a>
-    <a class="menu-btn" href="./concept.html">コンセプトを読む</a>
+    <nav class="topnav">
+      <a href="./concept.html">Vision</a>
+      <a href="./thoughts.html">Thoughts</a>
+    </nav>
   </div>
 
   <div class="hero" id="hero">
