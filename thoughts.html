@@ -499,9 +499,28 @@ function cssVarOf(g){ return 'var(' + (COLOR[g] || '--brick') + ')'; }
 var DATA = JSON.parse(document.getElementById('graph-data').textContent);
 var nodes, links, byId, kids, parentOf, root, adj = {};
 
+/* 1つにしか分岐しない中間ノードは階層を作らない。
+   その子（孫）を1つ上に引き上げて、分岐する階層だけを残す。 */
+function compact(node, depth){
+  var ch = node.children || [];
+  ch.forEach(function(c){ compact(c, depth + 1); });
+  var out = [];
+  ch.forEach(function(c){
+    var k = c.children || [];
+    while(k.length === 1 && (k[0].children || []).length){
+      c.children = k[0].children; k = c.children;
+    }
+    // 末端ひとつだけを抱えた中間ノードは、その末端に置き換える（テーマは残す）
+    if(depth >= 1 && k.length === 1 && !(k[0].children || []).length) out.push(k[0]);
+    else out.push(c);
+  });
+  node.children = out;
+}
+
 function buildView(view){
   nodes = []; links = []; byId = {}; kids = {}; parentOf = {};
   root = view.root.id;
+  compact(view.root, 0);
 
   (function walk(spec, parent, depth){
     var n = {
