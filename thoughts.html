@@ -235,7 +235,7 @@ nav a[aria-current="page"]{color:var(--ink); border-bottom-color:var(--brick)}
           ]},
 
           { "id": "long", "label": "憧れをまとうブランド", "kind": "theme", "group": "make", "children": [
-            { "id": "long/why", "label": "なぜ憧れを入れたいか", "kind": "section", "group": "make", "children": [
+            { "id": "long/why", "label": "消費者が憧れを求める背景", "kind": "section", "group": "make", "children": [
               { "id": "long/why/soc", "label": "いまの状況", "kind": "subject", "group": "make", "children": [
                 { "id": "d16", "label": "選択肢が増えた", "kind": "post", "group": "make", "size": 780,
                   "body": "生き方の選択肢は増えている。増えた分だけ、決めることが難しくなった。" },
@@ -440,8 +440,8 @@ nav a[aria-current="page"]{color:var(--ink); border-bottom-color:var(--brick)}
 var DT      = 0.125;
 var BURST0  = 48;
 var SPREAD  = 1.0;
-var REPEL   = 780;
-var CUT2    = 90000;
+var REPEL   = 1150;
+var CUT2    = 176400;
 var MIND2   = 900;
 var VMAX    = 140;
 var K_TREE  = 0.055;
@@ -449,7 +449,7 @@ var K_POST  = 0.045;
 var K_OTHER = 0.014;
 var GRAV    = 0.009;
 var DAMPB   = 0.86;
-var RAD     = [0, 250, 165, 118, 92, 76];
+var RAD     = [0, 300, 195, 134, 102, 84];
 var FLIGHT  = 520;
 var STAGGER = 26;
 
@@ -647,8 +647,16 @@ function toggle(id){
     (function prune(i){ (kids[i]||[]).forEach(function(c){ expanded[c] = false; prune(c); }); })(id);
     recomputeShown();
   }else{
+    // アコーディオン：開いた枝以外は閉じる。
+    // 祖先はそのまま残すので、どのグループの中にいるかは見えたまま重なりだけが消える。
+    var keep = {}, up = id;
+    while(up){ keep[up] = true; up = parentOf[up]; }
+    nodes.forEach(function(n){ if(!keep[n.id]) expanded[n.id] = false; });
     expanded[id] = true;
     recomputeShown();
+    // 開くたびに放射状の定位置へ組み直す。枝どうしが重なったまま固まらない。
+    var r0 = byId[root];
+    place(root, r0.x, r0.y, -Math.PI/2, Math.PI*2, 0);
     bloom(prev);
   }
   burst = BURST0; alpha = 1; hot = 1200;
@@ -765,7 +773,7 @@ function fitTarget(){
   var padR = panelOpen && !narrow ? Math.min(380, W * 0.88) : 0;
   var w = (maxX - minX) + padX*2 + padR, h = (maxY - minY) + padT + padB;
   var s = Math.min(W / w, H / h);
-  s = Math.max(0.22, Math.min(1.5, s));
+  s = Math.max(0.22, Math.min(2.3, s));
   var cx = (minX + maxX) / 2, cy = (minY + maxY) / 2;
   return { scale:s, tx: W/2 - cx*s - padR/2, ty: H/2 - cy*s + (padT - padB)/2 };
 }
