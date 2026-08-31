@@ -932,3 +932,20 @@ footer{border-top:1px solid var(--line);padding:64px 0 80px;text-align:center}
 
 </body>
 </html>
+
+<script>
+/* Concept Graph 連携：章にidを付与し、グラフへ戻る導線を出す */
+document.querySelectorAll('.chapter').forEach((s, i) => {
+  s.id = 'ch' + (i + 1);
+  s.style.scrollMarginTop = '78px';
+});
+(function () {
+  const mark = document.querySelector('.mh-mark');
+  if (mark) { mark.outerHTML = '<a class="mh-mark" href="./" style="text-decoration:none;color:inherit">' + mark.innerHTML + '</a>'; }
+  const meta = document.querySelector('.mh-meta');
+  if (meta) { meta.innerHTML = '<a href="./" style="color:inherit;text-decoration:none">&larr;&nbsp; Concept Graph</a>'; }
+  const fm = document.querySelector('.f-meta');
+  if (fm) { fm.insertAdjacentHTML('afterbegin', '<a href="./" style="color:inherit;text-decoration:none;border-bottom:1px solid var(--line);padding-bottom:2px">&larr; Concept Graph</a><br><br>'); }
+  if (location.hash) { const t = document.querySelector(location.hash); if (t) setTimeout(() => t.scrollIntoView(), 60); }
+})();
+</script>
