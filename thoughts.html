@@ -48,8 +48,8 @@ body{
 /* ===== ヘッダー ===== */
 header{
   position:fixed; top:0; left:0; right:0; z-index:5;
-  display:flex; align-items:baseline; gap:22px;
-  padding:18px 24px 14px; border-bottom:1px solid var(--line);
+  display:flex; align-items:baseline; flex-wrap:wrap;
+  padding:16px 24px 13px; border-bottom:1px solid var(--line); gap:18px;
   background:linear-gradient(to bottom, var(--bg) 72%, transparent);
   backdrop-filter:saturate(160%) blur(3px);
 }
@@ -58,7 +58,11 @@ header{
   font-size:19px; letter-spacing:.06em; color:var(--ink); text-decoration:none;
 }
 .wordmark em{font-style:italic; color:var(--brick)}
-nav{display:flex; gap:20px; margin-left:auto}
+nav{display:flex; gap:18px; align-items:baseline}
+nav::before{
+  content:""; display:inline-block; width:1px; height:11px;
+  background:var(--edge); margin-right:2px; transform:translateY(1px);
+}
 nav a{
   font-size:11.5px; letter-spacing:.2em; text-transform:uppercase;
   color:var(--muted); text-decoration:none; padding-bottom:3px;
@@ -156,7 +160,7 @@ nav a[aria-current="page"]{color:var(--ink); border-bottom-color:var(--brick)}
   <a class="wordmark" href="https://tianna-art.github.io/crincran-concept/">crin<em>cran</em></a>
   <nav>
     <a href="https://tianna-art.github.io/crincran-concept/concept.html">Vision</a>
-    <a href="#" aria-current="page">Thoughts</a>
+    <a href="./thoughts.html" aria-current="page">Thoughts</a>
   </nav>
 </header>
 
@@ -703,6 +707,8 @@ function step(){
   alpha += (0.06 - alpha) * 0.012;
 }
 
+var reduceRef = { on:false };
+
 /* ===== ビューポート ===== */
 var cv = document.getElementById('gcv');
 var ctx = cv.getContext('2d');
@@ -717,6 +723,13 @@ function resize(){
   dirty = true;
 }
 window.addEventListener('resize', resize);
+function checkSize(){ if(cv.clientWidth !== W || cv.clientHeight !== H) resize(); }
+if(window.ResizeObserver){
+  new ResizeObserver(function(){
+    checkSize();
+    if(reduceRef.on){ fit(); draw(); }
+  }).observe(cv);
+}
 
 function fitTarget(){
   var vis = nodes.filter(visible);
@@ -856,8 +869,11 @@ function draw(){
 }
 
 /* ===== ループ ===== */
-var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion:reduce)').matches;
+var reduce = !!(window.matchMedia && matchMedia('(prefers-reduced-motion:reduce)').matches);
+reduceRef.on = reduce;
 function frame(){
+  checkSize();
+  if(!W || !H){ requestAnimationFrame(frame); return; }
   stepFlight(); step(); easeFit(); draw();
   requestAnimationFrame(frame);
 }
