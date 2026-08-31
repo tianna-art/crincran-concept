@@ -69,7 +69,17 @@ a{color:inherit}
   display:flex;align-items:center;justify-content:space-between;
   gap:16px;padding-top:13px;padding-bottom:11px;
 }
-.mh-mark{font-family:"Bodoni Moda",serif;font-size:1.02rem;letter-spacing:.34em;text-transform:lowercase;}
+.mh-mark{font-family:"Bodoni Moda",serif;font-size:1.02rem;letter-spacing:.34em;text-transform:lowercase;
+  color:var(--ink);text-decoration:none;}
+.mh-nav{display:flex;align-items:baseline;gap:18px;margin-right:auto;padding-left:26px;}
+.mh-nav a{
+  font-size:.62rem;letter-spacing:.3em;text-transform:uppercase;color:var(--ink-faint);
+  text-decoration:none;padding-bottom:2px;border-bottom:1px solid transparent;
+  transition:color .2s,border-color .2s;
+}
+.mh-nav a:hover{color:var(--ink)}
+.mh-nav a[aria-current="page"]{color:var(--ink);border-bottom-color:var(--brick)}
+@media(max-width:600px){.mh-nav{padding-left:16px;gap:14px}}
 .mh-meta{font-size:.62rem;letter-spacing:.3em;color:var(--ink-faint);text-transform:uppercase;}
 @media(max-width:600px){.mh-meta{display:none}}
 
@@ -340,7 +350,11 @@ footer{border-top:1px solid var(--line);padding:64px 0 80px;text-align:center}
 
 <div class="masthead">
   <div class="wrap">
-    <div class="mh-mark">crincran</div>
+    <a class="mh-mark" href="./">crincran</a>
+    <nav class="mh-nav">
+      <a href="./concept.html" aria-current="page">Vision</a>
+      <a href="./thoughts.html">Thoughts</a>
+    </nav>
     <div class="mh-meta">Concept Book &nbsp;/&nbsp; 2026</div>
   </div>
 </div>
