@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>crincran Thoughts</title>
+<title>crincran ｜ Thoughts — 現在悩んでいること</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,wght@0,400;0,500;1,400&family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@400;600&display=swap" rel="stylesheet">
@@ -157,16 +157,16 @@ nav a[aria-current="page"]{color:var(--ink); border-bottom-color:var(--brick)}
 <body>
 
 <header>
-  <a class="wordmark" href="https://tianna-art.github.io/crincran-concept/">crin<em>cran</em></a>
+  <a class="wordmark" href="./">crin<em>cran</em></a>
   <nav>
-    <a href="https://tianna-art.github.io/crincran-concept/concept.html">Vision</a>
+    <a href="./concept.html">Vision</a>
     <a href="./thoughts.html" aria-current="page">Thoughts</a>
   </nav>
 </header>
 
 <div id="lede">
-  <h1>現在の迷いと論点</h1>
-  <p>結論ではなく、いま考えている途中のこと。点をたどると本文が出ます。</p>
+  <h1>現在悩んでいること</h1>
+  <p>結論ではなく、これから優先的に検証・決定する論点。点をたどると本文が出ます。</p>
 </div>
 
 <div id="app"><canvas id="gcv"></canvas></div>
@@ -180,252 +180,338 @@ nav a[aria-current="page"]{color:var(--ink); border-bottom-color:var(--brick)}
 {
   "views": [
     {
-      "id": "dilemma",
-      "label": "一番大きな迷い",
-      "note": "crincran を「自分を理解するためのツール」としてつくるのか、「憧れをまといながら人生を少し先へ進めるブランド」としてつくるのか。",
+      "id": "position",
+      "label": "どう伝えるか",
+      "note": "立ち位置は決まっている。ただ、それを初見の一文にする方法がまだ見つかっていない。",
       "root": {
-        "id": "self", "label": "", "kind": "self", "group": "self",
+        "id": "pos", "label": "", "kind": "self", "group": "self",
         "children": [
 
-          { "id": "tool", "label": "自分を理解するツール", "kind": "theme", "group": "know", "children": [
-            { "id": "tool/collect", "label": "断片を集める", "kind": "section", "group": "know", "children": [
-              { "id": "tool/collect/feel", "label": "心が動いた記録", "kind": "subject", "group": "know", "children": [
-                { "id": "d1", "label": "嬉しかったこと", "kind": "post", "group": "know", "size": 620,
-                  "body": "うまくいった瞬間だけでなく、なぜ嬉しかったのかまで残す。喜びの理由は、価値観のいちばん素直な手がかりになる。" },
-                { "id": "d2", "label": "苦しかったこと", "kind": "post", "group": "know", "size": 700,
-                  "body": "苦しさは避けるべきものとしてではなく、自分が何に耐えられないかを教えてくれる情報として残す。" },
-                { "id": "d3", "label": "違和感", "kind": "post", "group": "know", "size": 900,
-                  "body": "言語化する前の「なんとなく嫌だ」「ここではない気がする」。いちばん消えやすく、いちばん自分らしい素材。" },
-                { "id": "d4", "label": "嫉妬", "kind": "post", "group": "know", "size": 860,
-                  "body": "嫉妬は、自分が本当は欲しいものを一瞬で照らす。恥ずかしい感情として捨てず、方向を示す矢印として扱う。" },
-                { "id": "d5", "label": "挫折", "kind": "post", "group": "know", "size": 780,
-                  "body": "止まった場所、諦めた理由、そのときの自分の状態。失敗としてではなく、遠回りの記録として置いておく。" }
-              ]},
-              { "id": "tool/collect/out", "label": "外から来たもの", "kind": "subject", "group": "know", "children": [
-                { "id": "d6", "label": "憧れ", "kind": "post", "group": "know", "size": 940,
-                  "body": "まだ自分の中にないのに、なぜか心が動いたもの。これを「他人のもの」として除外しないのが crincran の特徴になる。" },
-                { "id": "d7", "label": "興味", "kind": "post", "group": "know", "size": 560,
-                  "body": "続かなかった興味も含めて残す。続かなかったこと自体が、条件を教えてくれる。" },
-                { "id": "d8", "label": "試行錯誤", "kind": "post", "group": "know", "size": 640,
-                  "body": "やってみた小さな実験と、その結果。うまくいったかどうかより、何が分かったかを残す。" },
-                { "id": "d9", "label": "出会った人", "kind": "post", "group": "know", "size": 520,
-                  "body": "誰の何に心を動かされたのか。人は、抽象的な価値観よりも具体的に憧れを運んでくる。" },
-                { "id": "d10", "label": "心が動いた場所", "kind": "post", "group": "know", "size": 500,
-                  "body": "空間、街、風景。場所への反応は、自分がどんな空気の中で生きたいかを示す。" }
+          { "id": "one", "label": "一言で伝えにくい", "kind": "theme", "group": "forge", "children": [
+            { "id": "one/fixed", "label": "固まっていること", "kind": "section", "group": "know", "children": [
+              { "id": "one/fixed/s", "label": "立ち位置", "kind": "subject", "group": "know", "children": [
+                { "id": "p1", "label": "ありのままで十分、ではない", "kind": "post", "group": "know", "size": 900,
+                  "body": "「そのままのあなたで十分」と言い切ると、変わりたいという願いまで閉じ込めてしまう。crincran はそこには立たない。" },
+                { "id": "p2", "label": "もっと頑張れ、でもない", "kind": "post", "group": "know", "size": 900,
+                  "body": "「頑張れば変われる」は、劣等感や焦りを燃料にしてしまう。向上心を煽ることで前へ進ませたくはない。" },
+                { "id": "p3", "label": "自己受容を土台に向上心を守る", "kind": "post", "group": "know", "size": 1240,
+                  "body": "いまの自分を否定せず、まだ知らない自分の可能性も閉じない。この両立が crincran の立ち位置であり、ここは動かさない。" }
               ]}
             ]},
-            { "id": "tool/context", "label": "つないだ先に出るもの", "kind": "section", "group": "know", "children": [
-              { "id": "tool/context/pc", "label": "Personal Context", "kind": "subject", "group": "know", "children": [
-                { "id": "d11", "label": "大切にしてきたこと", "kind": "post", "group": "know", "size": 1180,
-                  "body": "断片を時間をかけてつなぐと、「私はこういうことを大切にしてきたんだ」が自然に浮かび上がる。宣言ではなく、蓄積からの発見として。" },
-                { "id": "d12", "label": "判断軸が育つ", "kind": "post", "group": "know", "size": 980,
-                  "body": "一度きりの診断結果ではなく、更新され続ける判断軸。選ぶたびに参照でき、選ぶたびに少し変わっていく。" }
+            { "id": "one/open", "label": "未決定のこと", "kind": "section", "group": "forge", "children": [
+              { "id": "one/open/q", "label": "残っている問い", "kind": "subject", "group": "forge", "children": [
+                { "id": "p4", "label": "中間ではなく両立だと、どう言うか", "kind": "post", "group": "forge", "size": 1520,
+                  "body": "分かりやすい二項のどちらにも属さないため独自性はある。しかし初見では「曖昧な折衷」に見えてしまう。両立であることを、一文でどう伝えるか。" },
+                { "id": "p5", "label": "夢・困難・地図、最初に語るのはどれか", "kind": "post", "group": "forge", "size": 1360,
+                  "body": "入口として最初に差し出すのは「夢」なのか「困難」なのか「人生の地図」なのか。選んだ言葉で、届く人がまったく変わる。" },
+                { "id": "p6", "label": "繊細さと、届く強さ", "kind": "post", "group": "forge", "size": 1180,
+                  "body": "思想の繊細さを残したまま、広告やSNSで届く強度をどう持たせるか。丁寧に説明するほど、刺さらなくなる可能性がある。" },
+                { "id": "p7", "label": "「夢を追う人」に見えすぎないか", "kind": "post", "group": "forge", "size": 1080,
+                  "body": "「夢」という語が、大きな夢を持つ人だけのものに見えないか。多くの人にとって、それはもっと小さく、言葉にしにくいもののはず。" },
+                { "id": "p8", "label": "「まだ諦めきれないもの」の方が近い", "kind": "post", "group": "forge", "size": 1240,
+                  "body": "「夢」よりも「まだ諦めきれないもの」の方が、実際の感情に近いのではないか。ただし説明的で、コピーとしては弱くなる。" }
               ]}
             ]},
-            { "id": "tool/doubt", "label": "課金への疑問", "kind": "section", "group": "forge", "children": [
-              { "id": "tool/doubt/q", "label": "問い", "kind": "subject", "group": "forge", "children": [
-                { "id": "d13", "label": "「役に立つ」と「欲しい」は違う", "kind": "post", "group": "forge", "size": 1520,
-                  "body": "自己理解は役に立つかもしれない。けれど「欲しい」「このブランドの世界に入りたい」と思わせる力とは少し違う。役立つものは比較され、欲しいものは選ばれる。" },
-                { "id": "d14", "label": "毎月払いたくなるか", "kind": "post", "group": "forge", "size": 1240,
-                  "body": "価値観がわかる・判断軸が育つ、それだけで毎月お金を払いたくなるほど魅力的なのか。ここが、いま最も自信を持てていない部分。" },
-                { "id": "d15", "label": "機能だけでは足りない", "kind": "post", "group": "forge", "size": 1340,
-                  "body": "crincran には、機能だけではなく、憧れられる理由が必要なのではないか。この仮説がもう一方の軸につながっている。" }
+            { "id": "one/three", "label": "現時点の三層案", "kind": "section", "group": "tune", "children": [
+              { "id": "one/three/l", "label": "伝える順番", "kind": "subject", "group": "tune", "children": [
+                { "id": "p9", "label": "入口 — 夢の途中にある困難を、失敗作にしない。", "kind": "post", "group": "tune", "size": 1120,
+                  "body": "最初に触れる一文。感情に近いところから入る。" },
+                { "id": "p10", "label": "提供価値 — 曲がってきた時間が、未来の自分を支える地図になる。", "kind": "post", "group": "tune", "size": 1000,
+                  "body": "何が手に入るのかを言う層。ここで「地図」という具体物が出てくる。" },
+                { "id": "p11", "label": "思想 — いまの自分を否定せず、まだ知らない自分へ進む。", "kind": "post", "group": "tune", "size": 1000,
+                  "body": "深く知りたい人へ渡す層。ポジショニングそのもの。" }
               ]}
             ]}
           ]},
 
-          { "id": "long", "label": "憧れをまとうブランド", "kind": "theme", "group": "make", "children": [
-            { "id": "long/why", "label": "消費者が憧れを求める背景", "kind": "section", "group": "make", "children": [
-              { "id": "long/why/soc", "label": "いまの状況", "kind": "subject", "group": "make", "children": [
-                { "id": "d16", "label": "選択肢が増えた", "kind": "post", "group": "make", "size": 780,
-                  "body": "生き方の選択肢は増えている。増えた分だけ、決めることが難しくなった。" },
-                { "id": "d17", "label": "何を選びたいか分からない", "kind": "post", "group": "make", "size": 1060,
-                  "body": "選べないのではなく、自分が何を選びたいのかが分からない。crincran が向き合っているのはこの状態。" }
-              ]},
-              { "id": "long/why/ant", "label": "憧れの意味", "kind": "subject", "group": "make", "children": [
-                { "id": "d18", "label": "外側の物語に惹かれる", "kind": "post", "group": "make", "size": 900,
-                  "body": "分からなくなったとき、人は自分の外側にある物語や世界観に惹かれる。それは自然な反応。" },
-                { "id": "d19", "label": "逃避ではなくアンテナ", "kind": "post", "group": "make", "size": 1420,
-                  "body": "憧れは単なる逃避ではなく、「自分もこんな世界を生きてみたい」という可能性へのアンテナでもある。だから消すのではなく、拾う。" }
+          { "id": "bridge", "label": "自己理解と憧れの接続", "kind": "theme", "group": "make", "children": [
+            { "id": "bridge/risk", "label": "どちらかに寄ると", "kind": "section", "group": "forge", "children": [
+              { "id": "bridge/risk/s", "label": "起きること", "kind": "subject", "group": "forge", "children": [
+                { "id": "p12", "label": "自己理解だけに寄ると", "kind": "post", "group": "forge", "size": 1160,
+                  "body": "過去と現在を説明するだけの内省アプリになる。分かっても、進めない。" },
+                { "id": "p13", "label": "憧れを強く出すと", "kind": "post", "group": "forge", "size": 1220,
+                  "body": "理想との距離が可視化され、劣等感や焦りを刺激してしまう可能性がある。守りたかったものを、自分で壊すことになる。" }
               ]}
             ]},
-            { "id": "long/door", "label": "憧れの入口", "kind": "section", "group": "make", "children": [
-              { "id": "long/door/obj", "label": "惹かれる対象", "kind": "subject", "group": "make", "children": [
-                { "id": "d20", "label": "推し", "kind": "post", "group": "make", "size": 520 },
-                { "id": "d21", "label": "ブランド", "kind": "post", "group": "make", "size": 480 },
-                { "id": "d22", "label": "ファッション", "kind": "post", "group": "make", "size": 500 },
-                { "id": "d23", "label": "映画・アート・本", "kind": "post", "group": "make", "size": 560 },
-                { "id": "d24", "label": "人物・場所", "kind": "post", "group": "make", "size": 520 },
-                { "id": "d25", "label": "ライフスタイル", "kind": "post", "group": "make", "size": 540 }
-              ]}
-            ]},
-            { "id": "long/mat", "label": "扱いたいもの", "kind": "section", "group": "make", "children": [
-              { "id": "long/mat/unknown", "label": "まだ自分の中にないもの", "kind": "subject", "group": "make", "children": [
-                { "id": "d26", "label": "憧れも人生の素材", "kind": "post", "group": "make", "size": 1500,
-                  "body": "ありのままの自分だけではなく、まだ自分の中にない憧れも人生の素材として扱いたい。これが crincran を自己分析ツールと分ける一線。" }
+            { "id": "bridge/want", "label": "実現したいこと", "kind": "section", "group": "make", "children": [
+              { "id": "bridge/want/s", "label": "本人の証拠から立ち上げる", "kind": "subject", "group": "make", "children": [
+                { "id": "p14", "label": "以前も同じことに心が動いていた", "kind": "post", "group": "make", "size": 980,
+                  "body": "外から理想像を与えるのではなく、本人の記録の中にすでにあった反応を示す。" },
+                { "id": "p15", "label": "この強みは別の場面でも現れていた", "kind": "post", "group": "make", "size": 940,
+                  "body": "仕事と私生活を横断して、同じ強みが出ている瞬間を並べる。" },
+                { "id": "p16", "label": "この願いは、環境が変わっても残っている", "kind": "post", "group": "make", "size": 1060,
+                  "body": "環境や職場が変わっても消えなかったもの。これがいちばん強い「証拠」になる。" },
+                { "id": "p17", "label": "この関心は、まだ小さいが何度か芽を出している", "kind": "post", "group": "make", "size": 1000,
+                  "body": "本人がまだ自覚していない新芽。断定せず、可能性として差し出す。" },
+                { "id": "p18", "label": "最大の難所", "kind": "post", "group": "make", "size": 1600,
+                  "body": "本人の過去の記録から、未来の可能性を見つけること。外部から「こうなりなさい」と与えずに、憧れや次の一歩を立ち上げられるか。ここが現在いちばん解けていない。" }
               ]}
             ]}
           ]},
 
-          { "id": "join", "label": "接続の問い", "kind": "theme", "group": "forge", "children": [
-            { "id": "join/core", "label": "いま解けていないこと", "kind": "section", "group": "forge", "children": [
-              { "id": "join/core/q", "label": "残っている問い", "kind": "subject", "group": "forge", "children": [
-                { "id": "d27", "label": "二つをどう接続するか", "kind": "post", "group": "forge", "size": 1600,
-                  "body": "迷いの多くは、自己理解と憧れをどう接続するかに集約されている。どちらを選ぶかではなく、どうつなぐか。" },
-                { "id": "d28", "label": "機能と憧れは両立するか", "kind": "post", "group": "forge", "size": 1180,
-                  "body": "使えば役に立つ、という機能の説得と、この世界に入りたい、という憧れの引力。両方を一つのブランドで成立させられるか。" }
+          { "id": "who", "label": "憧れを誰が体現するのか", "kind": "theme", "group": "tune", "children": [
+            { "id": "who/cand", "label": "候補", "kind": "section", "group": "tune", "children": [
+              { "id": "who/cand/s", "label": "考えられる担い手", "kind": "subject", "group": "tune", "children": [
+                { "id": "p19", "label": "創業者自身の生き方や制作過程", "kind": "post", "group": "tune", "size": 780 },
+                { "id": "p20", "label": "困難を通ってきたユーザーの物語", "kind": "post", "group": "tune", "size": 760 },
+                { "id": "p21", "label": "架空の人物や自然の物語", "kind": "post", "group": "tune", "size": 700 },
+                { "id": "p22", "label": "映画・アート・文学から得た視点", "kind": "post", "group": "tune", "size": 700 },
+                { "id": "p23", "label": "Art Barで生まれた作品や言葉", "kind": "post", "group": "tune", "size": 740 },
+                { "id": "p24", "label": "ブランド全体のビジュアルと世界観", "kind": "post", "group": "tune", "size": 760 }
+              ]}
+            ]},
+            { "id": "who/care", "label": "気をつけること", "kind": "section", "group": "forge", "children": [
+              { "id": "who/care/s", "label": "ずれの危険", "kind": "subject", "group": "forge", "children": [
+                { "id": "p25", "label": "完成された成功者をアイコンにしない", "kind": "post", "group": "forge", "size": 1420,
+                  "body": "結果の華やかさを憧れの中心に置くと、crincran の思想とずれる。目指すのは、曲がってきた道を隠さず、その道ごと力にしている生き方への憧れ。" }
               ]}
             ]}
           ]}
         ]
       },
       "extraLinks": [
-        { "source": "d15", "target": "d26" },
-        { "source": "d13", "target": "d19" },
-        { "source": "d6",  "target": "d18" },
-        { "source": "d14", "target": "d27" },
-        { "source": "d17", "target": "d11" },
-        { "source": "d27", "target": "d28" }
+        { "source": "p4",  "target": "p3" },
+        { "source": "p5",  "target": "p9" },
+        { "source": "p8",  "target": "p16" },
+        { "source": "p13", "target": "p25" },
+        { "source": "p18", "target": "p11" },
+        { "source": "p12", "target": "p14" }
       ]
     },
 
     {
-      "id": "editing",
-      "label": "ぼやけないために",
-      "note": "憧れの中身は自由でいい。統一するのは「何に憧れるか」ではなく「その憧れをどう扱うか」。",
+      "id": "value",
+      "label": "価値をどう立てるか",
+      "note": "美しいだけでは続かない。役に立つだけでは、汎用AIと同じ場所に立ってしまう。",
       "root": {
-        "id": "edit", "label": "", "kind": "self", "group": "self",
+        "id": "val", "label": "", "kind": "self", "group": "self",
         "children": [
 
-          { "id": "risk", "label": "ぼやけるリスク", "kind": "theme", "group": "forge", "children": [
-            { "id": "risk/diff", "label": "憧れは人ごとに違う", "kind": "section", "group": "forge", "children": [
-              { "id": "risk/diff/a", "label": "ある人", "kind": "subject", "group": "forge", "children": [
-                { "id": "e1", "label": "モダン・都会的・知的", "kind": "post", "group": "forge", "size": 620,
-                  "body": "削ぎ落とされた線、都市の速度、知性の手触り。この世界に憧れる人がいる。" }
-              ]},
-              { "id": "risk/diff/b", "label": "別の人", "kind": "subject", "group": "forge", "children": [
-                { "id": "e2", "label": "可愛い・柔らかい・ロマンティック", "kind": "post", "group": "forge", "size": 620,
-                  "body": "やわらかさ、装飾、物語性。まったく別の美意識に惹かれる人がいる。" }
-              ]},
-              { "id": "risk/diff/c", "label": "さらに別の人", "kind": "subject", "group": "forge", "children": [
-                { "id": "e3", "label": "自然・旅・起業・アート・ラグジュアリー", "kind": "post", "group": "forge", "size": 700,
-                  "body": "生き方そのものに憧れる人もいる。対象はどこまでも広がりうる。" }
-              ]}
-            ]},
-            { "id": "risk/blur", "label": "自由にしすぎると", "kind": "section", "group": "forge", "children": [
-              { "id": "risk/blur/q", "label": "起きること", "kind": "subject", "group": "forge", "children": [
-                { "id": "e4", "label": "何のブランドか見えなくなる", "kind": "post", "group": "forge", "size": 1480,
-                  "body": "すべてを自由にすると、「crincran とは結局、何のブランドなのか」が見えなくなる。ユーザーの自由と、ブランドの輪郭が衝突する地点。" }
+          { "id": "both", "label": "実用性と世界観", "kind": "theme", "group": "make", "children": [
+            { "id": "both/two", "label": "両立すべき二つ", "kind": "section", "group": "make", "children": [
+              { "id": "both/two/s", "label": "内訳", "kind": "subject", "group": "make", "children": [
+                { "id": "v1", "label": "実用性", "kind": "post", "group": "make", "size": 1100,
+                  "body": "自分の価値観、強み、環境条件、願い、変化を理解できること。具体的な痛みを軽くできなければ、続くプロダクトにはならない。" },
+                { "id": "v2", "label": "世界観", "kind": "post", "group": "make", "size": 1100,
+                  "body": "自分の曲がってきた人生を、美しい風景として感じ直せること。分析結果だけを返すなら、汎用AIとの差がなくなる。" },
+                { "id": "v3", "label": "同じ体験の中で成立させる", "kind": "post", "group": "make", "size": 1480,
+                  "body": "「役に立つから使う」と「この世界に戻ってきたいから使う」を、別々の機能に分けずに一つの体験として成立させられるか。" }
               ]}
             ]}
           ]},
 
-          { "id": "free", "label": "自由にするもの", "kind": "theme", "group": "make", "children": [
-            { "id": "free/what", "label": "憧れの中身", "kind": "section", "group": "make", "children": [
-              { "id": "free/what/u", "label": "ユーザーが決める", "kind": "subject", "group": "make", "children": [
-                { "id": "e5", "label": "中身は決めなくていい", "kind": "post", "group": "make", "size": 1420,
-                  "body": "crincran がユーザーの憧れの中身を決める必要はない。何に憧れるかは、その人の人生に属している。" }
+          { "id": "sub", "label": "毎月課金する理由", "kind": "theme", "group": "forge", "children": [
+            { "id": "sub/weak", "label": "弱い可能性", "kind": "section", "group": "forge", "children": [
+              { "id": "sub/weak/s", "label": "懸念", "kind": "subject", "group": "forge", "children": [
+                { "id": "v4", "label": "記録できる・AIと話せる、だけでは弱い", "kind": "post", "group": "forge", "size": 1360,
+                  "body": "その二つは、すでに無料でも代替がある。継続課金の理由としては足りない。" },
+                { "id": "v5", "label": "価値が出るまで時間がかかる", "kind": "post", "group": "forge", "size": 1520,
+                  "body": "記録が増えるほど地図が深まり、過去には見えなかったつながりが分かる。それが crincran の価値だが、そこへ到達する前に離脱される可能性がある。" }
+              ]}
+            ]},
+            { "id": "sub/test", "label": "検証すべきこと", "kind": "section", "group": "know", "children": [
+              { "id": "sub/test/s", "label": "問い", "kind": "subject", "group": "know", "children": [
+                { "id": "v6", "label": "どの瞬間に最も使いたくなるのか", "kind": "post", "group": "know", "size": 1080,
+                  "body": "困難に直面した直後か、週次か、月次か、人生の転換期か。中心となる瞬間を一つに絞れるか。" },
+                { "id": "v7", "label": "初回利用でも得られる価値は何か", "kind": "post", "group": "know", "size": 1120,
+                  "body": "蓄積がゼロの状態でも、何かが返せなければ二回目がない。" },
+                { "id": "v8", "label": "三か月・半年・一年で何が変わるのか", "kind": "post", "group": "know", "size": 1100,
+                  "body": "時間の経過そのものを価値に変えられるか。使い続けた人だけが得られるものを定義する。" },
+                { "id": "v9", "label": "記録が少ない時期でも戻りたくなるか", "kind": "post", "group": "know", "size": 1160,
+                  "body": "書けない時期こそ、いちばん苦しい時期でもある。そこで閉じてしまわない体験をつくれるか。" }
               ]}
             ]}
           ]},
 
-          { "id": "fixed", "label": "固定するもの", "kind": "theme", "group": "tune", "children": [
-            { "id": "fixed/att", "label": "編集美学", "kind": "section", "group": "tune", "children": [
-              { "id": "fixed/att/1", "label": "扱い方", "kind": "subject", "group": "tune", "children": [
-                { "id": "e6", "label": "コピーせず、翻訳する", "kind": "post", "group": "tune", "size": 1300,
-                  "body": "憧れをそのままコピーするのではなく、自分の人生に翻訳する。同じ服を着ることではなく、なぜ惹かれたのかを自分の条件に置き換えること。" },
-                { "id": "e7", "label": "劣等感ではなく向上心", "kind": "post", "group": "tune", "size": 1220,
-                  "body": "劣等感を煽らず、向上心として扱う。憧れが自分を責める道具になった時点で、crincran ではなくなる。" },
-                { "id": "e8", "label": "正解を決めつけない", "kind": "post", "group": "tune", "size": 900,
-                  "body": "こう生きるべき、という答えを配らない。返すのは判断のための材料であって、判断そのものではない。" }
-              ]},
-              { "id": "fixed/att/2", "label": "残し方", "kind": "subject", "group": "tune", "children": [
-                { "id": "e9", "label": "挫折を切り捨てない", "kind": "post", "group": "tune", "size": 1160,
-                  "body": "挫折を失敗として切り捨てない。曲がった道のりそのものが、この人にしかない強度になる。" },
-                { "id": "e10", "label": "遠回りを未来の材料に", "kind": "post", "group": "tune", "size": 1240,
-                  "body": "遠回りを、消したい過去ではなく未来の材料として残す。crinkle crankle wall の思想そのもの。" }
-              ]},
-              { "id": "fixed/att/3", "label": "立ち位置", "kind": "subject", "group": "tune", "children": [
-                { "id": "e11", "label": "現実と理想のどちらも捨てない", "kind": "post", "group": "tune", "size": 1080,
-                  "body": "いまの自分を否定もせず、理想を諦めさせもしない。両方を抱えたまま進める場所をつくる。" },
-                { "id": "e12", "label": "世界に触れながら自分へ戻る", "kind": "post", "group": "tune", "size": 1340,
-                  "body": "自分だけを見つめ続けない。外の世界に触れて、そこで動いた心を持って自分へ戻る。内向きと外向きの往復が crincran のリズム。" }
+          { "id": "moat", "label": "汎用AIに代替されない価値", "kind": "theme", "group": "know", "children": [
+            { "id": "moat/risk", "label": "吸収されうるもの", "kind": "section", "group": "forge", "children": [
+              { "id": "moat/risk/s", "label": "単発でできること", "kind": "subject", "group": "forge", "children": [
+                { "id": "v10", "label": "相談・要約・励まし・文章生成", "kind": "post", "group": "forge", "size": 1240,
+                  "body": "単発で完結するものは、汎用AIへ吸収されていく。ここで戦わない。" }
               ]}
             ]},
-            { "id": "fixed/goal", "label": "目指す状態", "kind": "section", "group": "tune", "children": [
-              { "id": "fixed/goal/s", "label": "着地点", "kind": "subject", "group": "tune", "children": [
-                { "id": "e13", "label": "憧れは自由、編集はcrincranらしい", "kind": "post", "group": "tune", "size": 1620,
-                  "body": "憧れの中身は自由。でも、人生の編集方法は crincran らしい。ブランドの統一性は、素材ではなく編集姿勢の側に置く。" }
+            { "id": "moat/build", "label": "組み合わせで築く", "kind": "section", "group": "know", "children": [
+              { "id": "moat/build/s", "label": "積み上げるもの", "kind": "subject", "group": "know", "children": [
+                { "id": "v11", "label": "長期間蓄積される本人固有の人生記録", "kind": "post", "group": "know", "size": 1160 },
+                { "id": "v12", "label": "記録同士の関係性を育てるデータ構造", "kind": "post", "group": "know", "size": 1100 },
+                { "id": "v13", "label": "キャリアと私生活を横断する文脈", "kind": "post", "group": "know", "size": 980 },
+                { "id": "v14", "label": "根拠まで遡れるAIの解釈", "kind": "post", "group": "know", "size": 1060 },
+                { "id": "v15", "label": "ユーザーの修正によって育つ個人モデル", "kind": "post", "group": "know", "size": 1120 },
+                { "id": "v16", "label": "人生を自然として体感するUI", "kind": "post", "group": "know", "size": 960 },
+                { "id": "v17", "label": "Art Barや作品制作との接続", "kind": "post", "group": "know", "size": 940 },
+                { "id": "v18", "label": "制作者の思想と物語", "kind": "post", "group": "know", "size": 900 },
+                { "id": "v19", "label": "ここに人生を預けたいと思える信頼", "kind": "post", "group": "know", "size": 1440,
+                  "body": "競争優位はAIモデルそのものではない。本人の時間とともに育つデータ、体験、世界観の一体化に置く。" }
               ]}
             ]}
           ]}
         ]
       },
       "extraLinks": [
-        { "source": "e4",  "target": "e13" },
-        { "source": "e5",  "target": "e13" },
-        { "source": "e6",  "target": "e5"  },
-        { "source": "e10", "target": "e9"  },
-        { "source": "e12", "target": "e11" }
+        { "source": "v3",  "target": "v19" },
+        { "source": "v5",  "target": "v8" },
+        { "source": "v10", "target": "v11" },
+        { "source": "v9",  "target": "v7" },
+        { "source": "v2",  "target": "v16" },
+        { "source": "v4",  "target": "v14" }
       ]
     },
 
     {
-      "id": "between",
-      "label": "ありのままと憧れのあいだ",
-      "note": "「ありのままでいい」だけでも、「理想の自分になろう」でもない。crincran が扱いたいのは、その中間。",
+      "id": "form",
+      "label": "どうつくるか",
+      "note": "入力の言葉、自然の見え方、制作者の顔。かたちに関わる三つの未決。",
       "root": {
-        "id": "btw", "label": "", "kind": "self", "group": "self",
+        "id": "frm", "label": "", "kind": "self", "group": "self",
         "children": [
 
-          { "id": "asis", "label": "ありのままの自分", "kind": "theme", "group": "know", "children": [
-            { "id": "asis/past", "label": "すでにあるもの", "kind": "subject", "group": "know", "children": [
-              { "id": "f1", "label": "経験", "kind": "post", "group": "know", "size": 780,
-                "body": "選んできたこと、続けてきたこと、たまたま巻き込まれたこと。すべてが条件の材料になる。" },
-              { "id": "f2", "label": "違和感", "kind": "post", "group": "know", "size": 860,
-                "body": "合わなかった環境の記憶。何が嫌だったかは、何を大切にしているかの裏返し。" },
-              { "id": "f3", "label": "挫折", "kind": "post", "group": "know", "size": 820,
-                "body": "進めなかった地点。ここを消さずに持っていることが、この人の輪郭をつくる。" }
+          { "id": "input", "label": "入力しやすさと分析精度", "kind": "theme", "group": "know", "children": [
+            { "id": "input/tension", "label": "衝突していること", "kind": "section", "group": "forge", "children": [
+              { "id": "input/tension/s", "label": "二つの要請", "kind": "subject", "group": "forge", "children": [
+                { "id": "f1", "label": "自由記述だけでは分析しにくい", "kind": "post", "group": "forge", "size": 1140,
+                  "body": "記録同士の関係性を安定して取り出すには、ある程度の構造がいる。" },
+                { "id": "f2", "label": "項目を増やすと負担になる", "kind": "post", "group": "forge", "size": 1140,
+                  "body": "入力項目が増えるほど、記録すること自体が義務になる。いちばん残したい日ほど、書けなくなる。" }
+              ]}
+            ]},
+            { "id": "input/design", "label": "表と裏を分ける", "kind": "section", "group": "know", "children": [
+              { "id": "input/design/s", "label": "設計方針", "kind": "subject", "group": "know", "children": [
+                { "id": "f3", "label": "表側は、思わず答えたくなる言葉", "kind": "post", "group": "know", "size": 1200,
+                  "body": "「今日、起きたこと」「まだ諦めきれないこと」。記録させるのではなく、残したくなる言葉を置く。" },
+                { "id": "f4", "label": "裏側で、価値観・願い・環境へ構造化する", "kind": "post", "group": "know", "size": 1180,
+                  "body": "ユーザーにタグ付けを要求せず、AIが後ろで構造化する。" },
+                { "id": "f5", "label": "推測には確度を持たせる", "kind": "post", "group": "know", "size": 1020,
+                  "body": "断定ではなく、確からしさとともに提示する。" },
+                { "id": "f6", "label": "根拠となった記録を必ず表示する", "kind": "post", "group": "know", "size": 1060 },
+                { "id": "f7", "label": "修正・保留できるようにする", "kind": "post", "group": "know", "size": 1000 },
+                { "id": "f8", "label": "少ない記録から断定しない", "kind": "post", "group": "know", "size": 1040 },
+                { "id": "f9", "label": "入力項目は、アルゴリズムの設計でもある", "kind": "post", "group": "know", "size": 1440,
+                  "body": "「何を入力してもらうか」は画面上のコピーであると同時に、人生地図を育てるアルゴリズムそのものの設計になる。" }
+              ]}
             ]}
           ]},
 
-          { "id": "unknown", "label": "まだ知らない自分", "kind": "theme", "group": "make", "children": [
-            { "id": "unknown/up", "label": "外から来るもの", "kind": "subject", "group": "make", "children": [
-              { "id": "f4", "label": "憧れ", "kind": "post", "group": "make", "size": 940,
-                "body": "まだ手にしていない世界への反応。持っていないからこそ、進む方向を示す。" },
-              { "id": "f5", "label": "興味", "kind": "post", "group": "make", "size": 720,
-                "body": "理由は分からないが目が留まるもの。説明できない段階のまま残しておく。" },
-              { "id": "f6", "label": "美意識", "kind": "post", "group": "make", "size": 800,
-                "body": "何を美しいと感じるか。言葉より先に決まっていて、いちばん変わりにくい判断軸。" }
+          { "id": "visual", "label": "自然の癒やしと、進む強さ", "kind": "theme", "group": "tune", "children": [
+            { "id": "visual/risk", "label": "懸念", "kind": "section", "group": "forge", "children": [
+              { "id": "visual/risk/s", "label": "穏やかすぎると", "kind": "subject", "group": "forge", "children": [
+                { "id": "f10", "label": "前へ進む力が弱く見える", "kind": "post", "group": "forge", "size": 1300,
+                  "body": "自然の表現は癒やしや自己受容と相性がよい。ただし穏やかすぎると、夢を追う意志まで弱く見えてしまう。" }
+              ]}
+            ]},
+            { "id": "visual/lang", "label": "検討している視覚言語", "kind": "section", "group": "tune", "children": [
+              { "id": "visual/lang/s", "label": "候補", "kind": "subject", "group": "tune", "children": [
+                { "id": "f11", "label": "川・根・地層・霧・季節", "kind": "post", "group": "tune", "size": 820 },
+                { "id": "f12", "label": "波打つクリンクル・クランクルの曲線", "kind": "post", "group": "tune", "size": 860 },
+                { "id": "f13", "label": "宇宙や星のような広がり", "kind": "post", "group": "tune", "size": 780 },
+                { "id": "f14", "label": "深みのある抽象表現", "kind": "post", "group": "tune", "size": 760 },
+                { "id": "f15", "label": "ヴィンテージ・アート・物語性", "kind": "post", "group": "tune", "size": 780 },
+                { "id": "f16", "label": "静けさの中に、強度を", "kind": "post", "group": "tune", "size": 1400,
+                  "body": "必要なのは、単に癒やされる自然ではない。静けさの中に、前へ進む意志と強度を感じられる世界観。" }
+              ]}
             ]}
           ]},
 
-          { "id": "not", "label": "取らない立場", "kind": "theme", "group": "forge", "children": [
-            { "id": "not/side", "label": "どちらにも寄らない", "kind": "subject", "group": "forge", "children": [
-              { "id": "f7", "label": "「ありのままでいい」だけを言わない", "kind": "post", "group": "forge", "size": 1180,
-                "body": "肯定だけを配るブランドではない。肯定で止まると、人生は動かない。" },
-              { "id": "f8", "label": "「理想になろう」と煽らない", "kind": "post", "group": "forge", "size": 1180,
-                "body": "理想を掲げて焦らせるブランドでもない。煽りは短期的に効いて、長期的に人を削る。" }
-            ]}
-          ]},
-
-          { "id": "mid", "label": "扱いたい場所", "kind": "theme", "group": "tune", "children": [
-            { "id": "mid/here", "label": "その中間", "kind": "subject", "group": "tune", "children": [
-              { "id": "f9", "label": "人生を少し先へ進める", "kind": "post", "group": "tune", "size": 1560,
-                "body": "ありのままの自分から出発し、憧れを素材として受け取り、人生を少しだけ先へ進める。crincran が立つのはこの中間地点。" },
-              { "id": "f10", "label": "集める → つなぐ → 返す", "kind": "post", "group": "tune", "size": 1240,
-                "body": "経験も憧れも同じ入口から集め、時間をかけてつなぎ、美しい形で返す。この往復自体がプロダクトの中身になる。" }
+          { "id": "author", "label": "制作者をどこまで見せるか", "kind": "theme", "group": "make", "children": [
+            { "id": "author/why", "label": "見せる理由と負担", "kind": "section", "group": "forge", "children": [
+              { "id": "author/why/s", "label": "両側", "kind": "subject", "group": "forge", "children": [
+                { "id": "f17", "label": "誰が、なぜつくっているのかが重要になる", "kind": "post", "group": "forge", "size": 1240,
+                  "body": "AIによって機能や完成品が似通うほど、背後にいる人間の存在が差になる。" },
+                { "id": "f18", "label": "顔を出すことの心理的・社会的な負担", "kind": "post", "group": "forge", "size": 1180,
+                  "body": "露出はブランドを強くする一方で、続けられなければ意味がない。" }
+              ]}
+            ]},
+            { "id": "author/q", "label": "検討すべきこと", "kind": "section", "group": "make", "children": [
+              { "id": "author/q/s", "label": "問い", "kind": "subject", "group": "make", "children": [
+                { "id": "f19", "label": "顔を出さずに、思想や声、制作過程を伝えられるか", "kind": "post", "group": "make", "size": 1160 },
+                { "id": "f20", "label": "個人をアイコンにするのか、ブランド自体をアイコンにするのか", "kind": "post", "group": "make", "size": 1200 },
+                { "id": "f21", "label": "ポッドキャスト・動画・文章・アート、どれを中心にするか", "kind": "post", "group": "make", "size": 1040 },
+                { "id": "f22", "label": "個人の物語と、投影できる余白の両立", "kind": "post", "group": "make", "size": 1120,
+                  "body": "制作者の物語が強すぎると、ユーザーが自分を重ねる余白がなくなる。" },
+                { "id": "f23", "label": "完成された専門家ではなく、共に試行錯誤する人として", "kind": "post", "group": "make", "size": 1420,
+                  "body": "教える立場に立った瞬間、crincran の思想と矛盾する。迷いながらつくっている姿のまま見せられるか。" }
+              ]}
             ]}
           ]}
         ]
       },
       "extraLinks": [
-        { "source": "f3",  "target": "f9"  },
-        { "source": "f4",  "target": "f9"  },
-        { "source": "f7",  "target": "f9"  },
-        { "source": "f8",  "target": "f9"  },
-        { "source": "f9",  "target": "f10" },
-        { "source": "f2",  "target": "f6"  }
+        { "source": "f9",  "target": "f2" },
+        { "source": "f5",  "target": "f8" },
+        { "source": "f16", "target": "f12" },
+        { "source": "f23", "target": "f17" },
+        { "source": "f22", "target": "f20" },
+        { "source": "f3",  "target": "f1" }
+      ]
+    },
+
+    {
+      "id": "reach",
+      "label": "どこから届けるか",
+      "note": "誰に最初に届けるか、身体の体験とどうつなぐか、そしてどの順番で検証するか。",
+      "root": {
+        "id": "rch", "label": "", "kind": "self", "group": "self",
+        "children": [
+
+          { "id": "target", "label": "初期ターゲットの絞り方", "kind": "theme", "group": "know", "children": [
+            { "id": "target/cand", "label": "候補", "kind": "section", "group": "know", "children": [
+              { "id": "target/cand/s", "label": "考えられる入口", "kind": "subject", "group": "know", "children": [
+                { "id": "r1", "label": "夢や創作を続けている人", "kind": "post", "group": "know", "size": 900 },
+                { "id": "r2", "label": "起業や新しい挑戦の途中にいる人", "kind": "post", "group": "know", "size": 880 },
+                { "id": "r3", "label": "仕事の転換期にいる人", "kind": "post", "group": "know", "size": 860 },
+                { "id": "r4", "label": "まっすぐな成功ルートに乗れなかった人", "kind": "post", "group": "know", "size": 960 },
+                { "id": "r5", "label": "新卒や若手で、失敗を記録として残したい人", "kind": "post", "group": "know", "size": 880 },
+                { "id": "r6", "label": "キャリアと私生活の間で軸が分からなくなっている人", "kind": "post", "group": "know", "size": 940 }
+              ]}
+            ]},
+            { "id": "target/q", "label": "決めきれていないこと", "kind": "section", "group": "forge", "children": [
+              { "id": "target/q/s", "label": "問い", "kind": "subject", "group": "forge", "children": [
+                { "id": "r7", "label": "感情から入るか、場面から入るか", "kind": "post", "group": "forge", "size": 1520,
+                  "body": "「夢を諦めきれない人」という感情的な共通点を中心にするのか、キャリアなど具体的な利用場面から入るのか。思想は人生全体を扱うが、最初の入口はさらに絞る必要があるかもしれない。" }
+              ]}
+            ]}
+          ]},
+
+          { "id": "artbar", "label": "アプリとArt Barの接続", "kind": "theme", "group": "make", "children": [
+            { "id": "artbar/link", "label": "考えられる接続", "kind": "section", "group": "make", "children": [
+              { "id": "artbar/link/s", "label": "案", "kind": "subject", "group": "make", "children": [
+                { "id": "r8", "label": "生まれた作品や言葉を、記録として残す", "kind": "post", "group": "make", "size": 1000 },
+                { "id": "r9", "label": "地図から、次のArt Barのテーマを提案する", "kind": "post", "group": "make", "size": 1020 },
+                { "id": "r10", "label": "言葉にならない葛藤を、制作を通して表現する", "kind": "post", "group": "make", "size": 1080 },
+                { "id": "r11", "label": "新しい発見を「新芽」として記録する", "kind": "post", "group": "make", "size": 980 },
+                { "id": "r12", "label": "一定期間ごとに、身体的な振り返りを体験する", "kind": "post", "group": "make", "size": 1000 }
+              ]}
+            ]},
+            { "id": "artbar/q", "label": "論点", "kind": "section", "group": "forge", "children": [
+              { "id": "artbar/q/s", "label": "問い", "kind": "subject", "group": "forge", "children": [
+                { "id": "r13", "label": "集客イベントにしないこと", "kind": "post", "group": "forge", "size": 1440,
+                  "body": "Art Bar を単なる集客イベントにせず、デジタルでは得られない感覚を生むプロダクトの一部として設計できるか。" }
+              ]}
+            ]}
+          ]},
+
+          { "id": "order", "label": "現在の優先順位", "kind": "theme", "group": "tune", "children": [
+            { "id": "order/seq", "label": "検証の順番", "kind": "section", "group": "tune", "children": [
+              { "id": "order/seq/s", "label": "八つの段階", "kind": "subject", "group": "tune", "children": [
+                { "id": "r14", "label": "1. ポジショニングを一文で伝える", "kind": "post", "group": "tune", "size": 1400 },
+                { "id": "r15", "label": "2. 毎月戻ってくる中心体験を一つに絞る", "kind": "post", "group": "tune", "size": 1280 },
+                { "id": "r16", "label": "3. 入力項目と、返すアウトプットを定める", "kind": "post", "group": "tune", "size": 1160 },
+                { "id": "r17", "label": "4. AIが記録をつなぐ基本構造を設計する", "kind": "post", "group": "tune", "size": 1100 },
+                { "id": "r18", "label": "5. 汎用AIとの差を生む人生地図UIをつくる", "kind": "post", "group": "tune", "size": 1060 },
+                { "id": "r19", "label": "6. 憧れを生む世界観と発信方法を決める", "kind": "post", "group": "tune", "size": 1000 },
+                { "id": "r20", "label": "7. Art Barとアプリの接続を検証する", "kind": "post", "group": "tune", "size": 940 },
+                { "id": "r21", "label": "8. その後に物理プロダクトを検討する", "kind": "post", "group": "tune", "size": 880 }
+              ]}
+            ]}
+          ]}
+        ]
+      },
+      "extraLinks": [
+        { "source": "r7",  "target": "r14" },
+        { "source": "r13", "target": "r20" },
+        { "source": "r10", "target": "r11" },
+        { "source": "r15", "target": "r16" },
+        { "source": "r4",  "target": "r7" },
+        { "source": "r9",  "target": "r12" }
       ]
     }
   ]
